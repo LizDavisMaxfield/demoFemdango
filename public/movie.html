@@ -122,9 +122,7 @@
 
     <div class="comments">
         <h2>RECENT REVIEWS</h2>
-        {{comment.movieId}}
-   <div ng-repeat="comment in comments | orderBy: '-createdAt': reverse | limitTo: 10" ng-show="{{comment.movieId}} == currentMovieId "  ng-class-odd="'odd'" ng-class-even="'even'">
-            
+   <div ng-repeat="comment in comments | orderBy: '-createdAt': reverse" ng-if="!reset" ng-show="{{comment.movieId}} == currentMovieId "  ng-class-odd="'odd'" ng-class-even="'even'">
         <div class="earned-badges">
             <div class="badgebox" ng-show={{comment.badges.bechdel}}>
                  <img class="badge" src="images/standing75.png">

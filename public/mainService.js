@@ -46,6 +46,7 @@
         };
         
 //This function checks to see if movie images load
+        //***bug sometimes lets broken images through
         function loadImage(movie){
             that.movie = movie;
             var dfd = $q.defer();
@@ -88,7 +89,7 @@
 //This function displays movies that are currently showing in theaters
         this.searchMoviesInTheaters = function(title) {
             var dfd = $q.defer()
-            $http.get("http://api.themoviedb.org/3/movie/now_playing?api_key=df49ca00f987ca4b363f4e6291e80c15&sort_by=release_date.asc")
+            $http.get("http://api.themoviedb.org/3/movie/now_playing?api_key=df49ca00f987ca4b363f4e6291e80c15&sort_by=popularity.desc&include_adult=false")
             .then(function(response) {
             dfd.resolve(response.data);
         }, function(error) {
@@ -106,15 +107,15 @@
                 return nextweek.toISOString().split('T')[0];   
             };
 
-            function dateInTwoMonths(){
+            function dateInSixMonths(){
                 var today = new Date();
-                var dateInTwoMonths = new Date(today.getFullYear(), today.getMonth()+2, today.getDate()+7);
+                var dateInSixMonths = new Date(today.getFullYear(), today.getMonth()+6, today.getDate()+7);
                     
-                return dateInTwoMonths= dateInTwoMonths.toISOString().split('T')[0];
-                        console.log("format:", dateInTwoMonths)                
+                return dateInTwoMonths= dateInSixMonths.toISOString().split('T')[0];
+//                        console.log("format:", dateInSixMonths)                
             };    
             var dfd = $q.defer()
-            $http.get("http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&primary_release_date.gte=" + nextweek() + "&primary_release_date.lte=" + dateInTwoMonths() +"&api_key=df49ca00f987ca4b363f4e6291e80c15")
+            $http.get("http://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&primary_release_date.gte=" + nextweek() + "&primary_release_date.lte=" + dateInSixMonths() +"&api_key=df49ca00f987ca4b363f4e6291e80c15&include_adult=false")
             .then(function(response) {
             dfd.resolve(response.data);
             }, function(error) {
@@ -127,7 +128,7 @@
 //This function displays the most popular movies
         this.searchMoviesPopular = function(title) {
             var dfd = $q.defer()
-            $http.get("http://api.themoviedb.org/3/discover/movie?vote_average.gte=7&api_key=df49ca00f987ca4b363f4e6291e80c15&sort_by=popularity.desc")
+            $http.get("http://api.themoviedb.org/3/discover/movie?vote_average.gte=7&api_key=df49ca00f987ca4b363f4e6291e80c15&sort_by=popularity.desc&include_adult=false")
             .then(function(response) {
             dfd.resolve(response.data);
         }, function(error) {

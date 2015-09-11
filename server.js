@@ -12,16 +12,17 @@ app.use(express.static(__dirname + "/public"));
 app.get("/bechdel/:imdbID", function(req, res){
  console.log("imdbID:" + req.params.imdbID);
   request.get("http://www.omdbapi.com/?&y=&plot=short&r=json&tomatoes=true&apikey=44112dd6&i="+req.params.imdbID, function(error, response, body){
-    if(error) res.status(500).json(err);
+    if(error) res.status(500).json(error);
       body = JSON.parse(body); 
       var imdbid = body.imdbID.replace("tt", "");
       
     request.get("http://bechdeltest.com/api/v1/getMovieByImdbId?imdbid="+imdbid, function(err, resp, bod){
-        if(error) res.status(501).json(err);
+        if(err) res.status(501).json(err);
         bod = JSON.parse(bod);
           
-      request.get("http://img.omdbapi.com/?apikey=44112dd6&h=250&i=" + imdbid, function(err, respo, image){
+      request.get("http://img.omdbapi.com/?apikey=44112dd6&h=250&i=" + imdbid, function(erro, respo, image){
 //          console.log(body);
+          if(erro) res.status(501).json(erro);
           res.json({
               imdbId: body.imdbID,
               title: body.Title,

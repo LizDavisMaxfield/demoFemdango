@@ -21,8 +21,10 @@ angular.module("femdangoApp").controller("movieCtrl", function($scope, mainServi
 
     $scope.comments = commentsService.comments;
     $scope.comments.$loaded().then(function (comments) {
-//            console.log(comments);
-        });    
+            console.log(comments);
+        $scope.movieComments = comments;
+        }); 
+    console.log($scope.comments);
     $scope.badges = commentsService.badges;
 
     $scope.createComment = function() {
@@ -32,6 +34,7 @@ angular.module("femdangoApp").controller("movieCtrl", function($scope, mainServi
             movieId: $route.current.params.id,
             movieTitle: $scope.movieData.title,
             createdAt : date.toLocaleString(),
+            userId: $scope.user.uid,
             user : $scope.name,
             text : $scope.userMovieReview,
             badges:  $scope.badges
@@ -79,6 +82,11 @@ angular.module("femdangoApp").controller("movieCtrl", function($scope, mainServi
         }
     };
 
+    $scope.earnedBadgesArr = commentsService.earnedBadgesArr;
+
+//     $scope.earnedBadgesArr.$loaded().then(function (earnedBadgesArr) {
+//            console.log(earnedBadgesArr);
+//        }); 
 //    $scope.getEarnedBadges = function() {
 //        return commentsService.earnedBadgesArr;
 //    };

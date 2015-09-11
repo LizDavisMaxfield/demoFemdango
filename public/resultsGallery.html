@@ -1,4 +1,4 @@
-<div ng-init="checked = false" class="movieImg" ng-repeat="movie in data">
+<div ng-init="checked = false" class="movieImg" ng-repeat="movie in data ">
     <div class="loading" ng-show="checked">
     </div>
     <a  ng-click="checked = true ; getBadgeMovies()" href={{"#/browse/"+movie.id}} >

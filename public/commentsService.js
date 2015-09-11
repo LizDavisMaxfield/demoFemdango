@@ -2,7 +2,7 @@
 
 var app = angular.module("femdangoApp").service("commentsService", function($location, $firebaseObject, $firebaseArray, $route){
     var that = this;
-    
+    var This = this;
     this.currentMovieId = $route.current.params.id;
 //      console.log(this.currentMovieId);      
     
@@ -13,6 +13,7 @@ var app = angular.module("femdangoApp").service("commentsService", function($loc
     
     this.comments.$loaded().then(function (comments) {
         console.log(comments);
+       
     });
     
     this.badges = {
@@ -58,7 +59,7 @@ this.getbadgeCount = function (){
 this.getbadgeCount();
 
     //this function creates an array of badges that have multiple (1 or more for now) nominations for the same badges
-              that.earnedBadgesArr= [];
+              This.earnedBadgesArr= [];
 
       var getBadgeForMovie = function() {
             for (movie in that.earnedBadgeMovies) {
@@ -68,7 +69,7 @@ this.getbadgeCount();
                     for (badge in that.earnedBadgeMovies[movie]) {
                         console.log(badge, that.earnedBadgeMovies[movie][badge]);
                         if (that.earnedBadgeMovies[movie][badge] >= 1 && badge !== undefined) {
-                            that.earnedBadgesArr.push(badge);
+                            This.earnedBadgesArr.push(badge);
 //                        console.log(that.badge, that.badgeValue);
                         }
                     }
@@ -76,7 +77,9 @@ this.getbadgeCount();
                     console.log("no match");
                 }
             } console.log(that.earnedBadgesArr); 
+          that.earnedBadg
         }
+      
 
             
 });
